@@ -1,5 +1,5 @@
 const clientLoader = require('./src/clientLoader');
-const commandLoader = require('./src/commandLoader');
+const commandLoader = require('./src/commandLoader');è
 const xp = require('./database');
 const {Discord, Permissions} = require('discord.js');
 
@@ -10,7 +10,9 @@ const bridge = require('./features/bridge');
 require('colors');
 require('dotenv');
 
-const COMMAND_PREFIX = process.env.COMMAND_PREFIX;
+// const COMMAND_PREFIX = process.env.COMMAND_PREFIX;
+
+const COMMAND_PREFIX = "!t-";
 
 clientLoader.createClient(['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS'])
   .then(async (client) => {
