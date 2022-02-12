@@ -13,11 +13,9 @@ module.exports = (message, client) => {
                           channels.forEach(channel => {
                             if (channel.name === "shared" && channel.id != message.channel.id) {
                                 const Discord = require('discord.js');
-
                                 const embed = new Discord.MessageEmbed();
                                 embed.setTitle(`${message.author.username}` + " a envoyé un message dans le channel " + channel.name)
                                 embed.setDescription(message.content)
-
                                 channel.send({ embeds: [embed] })
                             }
                           })

@@ -9,27 +9,7 @@ const bridge = require('./features/bridge');
 
 require('colors');
 require('dotenv');
-/*databaaaaaaaaaaaaaaaaaaaaaaaaaase*/ 
-// const mysql = require ('mysql');
-// require('dotenv').config()
 
-// const connection = mysql.createConnection({
-//     host: process.env.DATABASE_HOST,
-//     user: process.env.DATABASE_USER,
-//     database: process.env.DATABASE_NAME,
-//     password: "",
-// });
-
-// connection.connect((err) => {
-//     if(err) {
-//         console.log("C'est la m", err)
-//     }
-//     else {
-//         console.log("c'est ok ")
-//     }
-// });
-
-// /* fin de database */
 const COMMAND_PREFIX = process.env.COMMAND_PREFIX;
 
 clientLoader.createClient(['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS'])
@@ -37,7 +17,28 @@ clientLoader.createClient(['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS'])
     await commandLoader.load(client);
 
   client.on('guildMemberAdd', member => {
-        member.roles.add('940640046451667034');
+        member.guild.roles.fetch().then((roles) => {
+                  roleFound = null
+                  roles.forEach(role => {
+                    if (role.name == `noob`) {
+                      roleFound = role
+                    }
+                  });
+
+                  if (roleFound) {
+                    member.roles.add(roleFound).catch((err) => { })
+                  } else {
+                    member.guild.roles.create({
+                      name: `noob`,
+                      color: 'BLACK',
+                      permissions: [
+                        Permissions.DEFAULT
+                      ]
+                    }).then((newRole) => {
+                      member.roles.add(newRole)
+                    })
+                  }
+                })      
   })
 
       xp.connect();
